@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.lang.annotation.Target;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity

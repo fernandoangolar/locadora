@@ -5,9 +5,9 @@ import com.angolar.ao.locadora.domain.exception.EntidadeNaoEncontradaException;
 import com.angolar.ao.locadora.domain.model.Category;
 import com.angolar.ao.locadora.domain.repositories.CategoryRepository;
 import com.angolar.ao.locadora.domain.service.CategoryService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,12 +42,12 @@ public class CategoryCotroller {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Category>> getById(@PathVariable Long id) {
+    public ResponseEntity<Category> getById(@PathVariable Long id) {
 
         Optional<Category> category = repository.findById(id);
 
         if ( category.isPresent() ) {
-            return ResponseEntity.ok(category);
+            return ResponseEntity.ok(category.get());
         }
 
         return ResponseEntity.notFound()
@@ -55,15 +55,16 @@ public class CategoryCotroller {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category category ) {
+    @Transactional
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Category category ) {
 
-        Category categoryAtual = repository.findById(id).get();
+        Category categoryAtual = repository.findById(id)
+                     .orElse(null);
 
         if ( categoryAtual != null ) {
             BeanUtils.copyProperties(category, categoryAtual, "id");
 
-
-            repository.save(categoryAtual);
+            categoryAtual = repository.save(categoryAtual);
             return ResponseEntity.ok(categoryAtual);
         }
 
@@ -72,18 +73,18 @@ public class CategoryCotroller {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
 
         try {
             service.delete(id);
             return ResponseEntity.noContent()
                     .build();
-        } catch (EntidadeEmUsoException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .build();
         } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
+            return ResponseEntity.notFound()
                     .build();
+        }  catch (EntidadeEmUsoException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(e.getMessage());
         }
     }
 }

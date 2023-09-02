@@ -5,6 +5,7 @@ import com.angolar.ao.locadora.domain.exception.EntidadeNaoEncontradaException;
 import com.angolar.ao.locadora.domain.model.Actor;
 import com.angolar.ao.locadora.domain.repositories.ActorRepository;
 import com.angolar.ao.locadora.domain.service.ActorService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,12 +40,12 @@ public class ActorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Actor>> getById(@PathVariable Long id) {
+    public ResponseEntity<Actor> getById(@PathVariable Long id) {
 
         Optional<Actor> actor = repository.findById(id);
 
         if ( actor.isPresent() ) {
-            return ResponseEntity.ok(actor);
+            return ResponseEntity.ok(actor.get());
         }
 
         return ResponseEntity.notFound()
@@ -52,14 +53,16 @@ public class ActorController {
     }
 
     @PutMapping("/{id}")
+    @Transactional
     public ResponseEntity<Actor> update(@PathVariable Long id, @RequestBody Actor actor ) {
 
-        Actor actorActual = repository.findById(id).get();
+        Actor actorActual = repository.findById(id)
+                .orElse(null);
 
         if ( actorActual != null ) {
             BeanUtils.copyProperties(actor, actorActual, "id" );
 
-            repository.save(actorActual);
+            actorActual = repository.save(actorActual);
             return  ResponseEntity.ok(actorActual);
         }
 
@@ -68,18 +71,20 @@ public class ActorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    @Transactional
+    public ResponseEntity<?> delete(@PathVariable Long id) {
 
         try {
             service.delete(id);
             return ResponseEntity.noContent()
                     .build();
+        } catch ( EntidadeNaoEncontradaException e ) {
+            return ResponseEntity.notFound()
+                    .build();
         } catch (EntidadeEmUsoException e ) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .build();
-        } catch (EntidadeNaoEncontradaException e ) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .build();
+                .body(e.getMessage());
+
         }
     }
 }
