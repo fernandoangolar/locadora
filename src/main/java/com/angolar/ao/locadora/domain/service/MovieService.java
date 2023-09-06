@@ -18,12 +18,12 @@ public class MovieService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
     public Movie salve( Movie movie ) {
 
         Long categoryId = movie.getCategory().getId();
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow( () -> new EntidadeNaoEncontradaException( String.format("Não existe cadastro de categoria com este código %d", categoryId)));
-
 
         movie.setCategory(category);
         return repository.save(movie);
