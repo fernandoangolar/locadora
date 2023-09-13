@@ -1,14 +1,13 @@
 package com.angolar.ao.locadora.domain.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.angolar.ao.locadora.domain.exception.EntidadeNaoEncontradaException;
 import com.angolar.ao.locadora.domain.model.Category;
 import com.angolar.ao.locadora.domain.model.Movie;
 import com.angolar.ao.locadora.domain.repositories.CategoryRepository;
 import com.angolar.ao.locadora.domain.repositories.MovieRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class MovieService {
