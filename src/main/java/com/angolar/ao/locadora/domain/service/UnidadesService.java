@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.angolar.ao.locadora.domain.exception.EntidadeNaoEncontradaException;
 import com.angolar.ao.locadora.domain.model.Movie;
-import com.angolar.ao.locadora.domain.model.Unidades;
+import com.angolar.ao.locadora.domain.model.Unidade;
 import com.angolar.ao.locadora.domain.repositories.MovieRepository;
 import com.angolar.ao.locadora.domain.repositories.UnidadesRepository;
 
@@ -18,7 +18,7 @@ public class UnidadesService {
     @Autowired
     private MovieRepository movieRepository;
 
-    public Unidades salve( Unidades unidades ) {
+    public Unidade salve( Unidade unidades ) {
 
         Long id = unidades.getMovie().getId();
         Movie movie = movieRepository.findById(id)

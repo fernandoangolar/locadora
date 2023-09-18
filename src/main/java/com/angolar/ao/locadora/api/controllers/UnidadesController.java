@@ -1,6 +1,6 @@
 package com.angolar.ao.locadora.api.controllers;
 
-import com.angolar.ao.locadora.domain.model.Unidades;
+import com.angolar.ao.locadora.domain.model.Unidade;
 import com.angolar.ao.locadora.domain.repositories.UnidadesRepository;
 import com.angolar.ao.locadora.domain.service.UnidadesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +20,22 @@ public class UnidadesController {
     private UnidadesRepository repository;
 
     @PostMapping
-    public ResponseEntity<Unidades> save(@RequestBody Unidades unidades) {
+    public ResponseEntity<Unidade> save(@RequestBody Unidade unidades) {
 
-        Unidades obj = service.salve(unidades);
+        Unidade obj = service.salve(unidades);
 
         return ResponseEntity.ok(obj);
     }
 
     @GetMapping
-    public List<Unidades> getAll() {
+    public List<Unidade> getAll() {
         return repository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Unidades> findById(@PathVariable Long id) {
+    public ResponseEntity<Unidade> findById(@PathVariable Long id) {
 
-        Optional<Unidades> unidades = repository.findById(id);
+        Optional<Unidade> unidades = repository.findById(id);
 
         if ( unidades.isPresent() ) {
             return ResponseEntity.ok(unidades.get());
