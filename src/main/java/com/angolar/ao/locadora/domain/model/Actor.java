@@ -1,5 +1,6 @@
 package com.angolar.ao.locadora.domain.model;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,4 +14,7 @@ public class Actor {
     private Long id;
 
     private String name;
+
+    // @OneToMany(mappedBy = "actor")
+    // private List<Movie> movies;
 }
