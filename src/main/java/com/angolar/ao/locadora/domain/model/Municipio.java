@@ -16,5 +16,4 @@ public class Municipio {
 
     @Column(nullable = false)
     private String nome;
-
 }

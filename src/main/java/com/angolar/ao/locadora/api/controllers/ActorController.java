@@ -44,12 +44,8 @@ public class ActorController {
 
         Optional<Actor> actor = repository.findById(id);
 
-        if ( actor.isPresent() ) {
-            return ResponseEntity.ok(actor.get());
-        }
-
-        return ResponseEntity.notFound()
-                .build();
+        return actor.map(ResponseEntity::ok).orElseGet( () -> ResponseEntity.notFound()
+                .build());
     }
 
     @PutMapping("/{id}")

@@ -22,7 +22,7 @@ public class UnidadesService {
 
         Long id = unidades.getMovie().getId();
         Movie movie = movieRepository.findById(id)
-                .orElseThrow( () -> new EntidadeNaoEncontradaException(String.format("Não existe cadastro de movie com este id", id)));
+                .orElseThrow( () -> new EntidadeNaoEncontradaException(String.format("Não existe cadastro de movie com este %d", id)));
 
 
         unidades.setMovie(movie);

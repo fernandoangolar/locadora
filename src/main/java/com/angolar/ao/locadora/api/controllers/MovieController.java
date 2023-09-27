@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/movies")
@@ -29,6 +30,7 @@ public class MovieController {
 
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(movie);
+
         } catch (EntidadeNaoEncontradaException e) {
             return ResponseEntity.badRequest()
                     .body(e.getMessage());
@@ -39,5 +41,14 @@ public class MovieController {
     @GetMapping
     public List<Movie> getAll() {
         return repository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Movie> findById(@PathVariable Long id) {
+
+        Optional<Movie> movie = repository.findById(id);
+
+        return movie.map(ResponseEntity::ok).orElseGet( () -> ResponseEntity.notFound()
+                .build());
     }
 }

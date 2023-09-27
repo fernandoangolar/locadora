@@ -37,7 +37,6 @@ public class CategoryCotroller {
 
     @GetMapping
     public List<Category> getAll() {
-
         return repository.findAll();
     }
 
@@ -46,26 +45,21 @@ public class CategoryCotroller {
 
         Optional<Category> category = repository.findById(id);
 
-        if ( category.isPresent() ) {
-            return ResponseEntity.ok(category.get());
-        }
-
-        return ResponseEntity.notFound()
-                .build();
+        return category.map(ResponseEntity::ok).orElseGet( () -> ResponseEntity.notFound()
+                .build());
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Category category ) {
 
-        Category categoryAtual = repository.findById(id)
-                     .orElse(null);
+        Optional<Category> categoryAtual = repository.findById(id);
 
-        if ( categoryAtual != null ) {
-            BeanUtils.copyProperties(category, categoryAtual, "id");
+        if ( categoryAtual.isPresent() ) {
+            BeanUtils.copyProperties(category, categoryAtual.get(), "id");
 
-            categoryAtual = repository.save(categoryAtual);
-            return ResponseEntity.ok(categoryAtual);
+            Category save = repository.save(categoryAtual.get());
+            return ResponseEntity.ok(save);
         }
 
         return ResponseEntity.notFound()

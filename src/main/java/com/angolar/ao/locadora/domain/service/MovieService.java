@@ -26,5 +26,6 @@ public class MovieService {
 
         movie.setCategory(category);
         return repository.save(movie);
+
     }
 }

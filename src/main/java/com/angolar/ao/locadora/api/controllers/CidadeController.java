@@ -38,16 +38,19 @@ public class CidadeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cidade> get(@PathVariable Long id) {
+    public ResponseEntity<Cidade> findById(@PathVariable Long id) {
 
         Optional<Cidade> cidade = repository.findById(id);
 
-        if ( cidade.isPresent() ) {
-            return ResponseEntity.ok(cidade.get());
-        }
+        return cidade.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound()
+                .build());
 
-        return ResponseEntity.notFound()
-            .build();
+//        if ( cidade.isPresent() ) {
+//            return ResponseEntity.ok(cidade.get());
+//        }
+//
+//        return ResponseEntity.notFound()
+//            .build();
     }
 
     @PostMapping

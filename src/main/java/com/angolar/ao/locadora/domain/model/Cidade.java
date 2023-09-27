@@ -3,12 +3,7 @@ package com.angolar.ao.locadora.domain.model;
 
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 
@@ -24,5 +19,6 @@ public class Cidade {
     private String name;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Municipio municipio;
 }
