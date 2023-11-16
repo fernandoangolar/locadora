@@ -20,7 +20,4 @@ public class Category {
     @Column( nullable =  false )
     private String name;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "category")
-    public List<Movie> movies = new ArrayList<>();
 }

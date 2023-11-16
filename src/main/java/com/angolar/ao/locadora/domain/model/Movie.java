@@ -21,21 +21,17 @@ public class Movie {
     private Long id;
 
     @Column(nullable = false)
-    private String titulo;
+    private String title;
 
     @Column(nullable = false)
-    private String tempo;
+    private String release_year;
+
+    @OneToMany(mappedBy = "movie")
+    private List<Rentals> rentals = new ArrayList<>();
 
 //    @JsonIgnore
     @ManyToOne
     private Category category;
 
-    @JsonIgnore
-    @OneToMany( mappedBy = "movie" )
-    private List<Unidade> unidades = new ArrayList<>();
-
-//    @ManyToOne
-//    @JoinColumn(nullable = false)
-//    private Actor actor;
 
 }

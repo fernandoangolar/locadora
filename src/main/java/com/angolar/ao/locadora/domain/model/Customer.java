@@ -1,23 +1,26 @@
 package com.angolar.ao.locadora.domain.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.extern.apachecommons.CommonsLog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "actors")
-public class Actor {
+@Table( name = "tb_customer")
+public class Customer {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column( nullable = false)
     private String name;
 
-//    @OneToMany(mappedBy = "actor")
-//    private List<Movie> movies = new ArrayList<>();
+    @OneToMany(mappedBy = "customer")
+    private List<Rentals> rentals = new ArrayList<>();
+
+    private boolean isAdmin;
 }
