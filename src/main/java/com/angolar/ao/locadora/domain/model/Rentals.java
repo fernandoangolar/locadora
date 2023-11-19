@@ -17,12 +17,10 @@ public class Rentals {
 
     @ManyToOne
     @JoinColumn(name = "id_movie")
-    @Column( nullable = false)
     private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "id_customer")
-    @Column( nullable = false, name = "id_customer")
     private Customer customer;
 
     private LocalDateTime rental_date;

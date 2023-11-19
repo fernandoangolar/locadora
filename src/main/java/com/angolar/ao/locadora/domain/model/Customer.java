@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table( name = "tb_customer")
+@Table( name = "tb_customers")
 public class Customer {
 
     @Id
@@ -17,7 +17,13 @@ public class Customer {
     private Long id;
 
     @Column( nullable = false)
-    private String name;
+    private String firstname;
+
+    @Column( nullable = false )
+    private String lastname;
+
+    @Column( nullable = false )
+    private String email;
 
     @OneToMany(mappedBy = "customer")
     private List<Rentals> rentals = new ArrayList<>();

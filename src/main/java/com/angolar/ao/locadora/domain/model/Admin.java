@@ -13,7 +13,10 @@ public class Admin {
     public Long id;
 
     @Column( nullable = false )
-    public String name;
+    public String firstname;
+
+    @Column( nullable = false )
+    public String lastname;
 
     @Column( nullable = false )
     private String password;

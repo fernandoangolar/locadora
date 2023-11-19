@@ -17,38 +17,17 @@ import java.util.Optional;
 public class MovieController {
 
     @Autowired
-    private MovieRepository repository;
+    private MovieService movieService;
 
-    @Autowired
-    private MovieService service;
 
     @PostMapping
-    public ResponseEntity<?> salve(@RequestBody Movie movie) {
+    public ResponseEntity<Movie> save (@RequestBody Movie movie ) {
 
-        try {
-            movie = service.salve(movie);
+        Movie entity = movieService.save(movie);
 
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(movie);
-
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.badRequest()
-                    .body(e.getMessage());
-        }
-
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(entity);
     }
 
-    @GetMapping
-    public List<Movie> getAll() {
-        return repository.findAll();
-    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Movie> findById(@PathVariable Long id) {
-
-        Optional<Movie> movie = repository.findById(id);
-
-        return movie.map(ResponseEntity::ok).orElseGet( () -> ResponseEntity.notFound()
-                .build());
-    }
 }

@@ -1,11 +1,9 @@
 package com.angolar.ao.locadora.domain.repositories;
 
-import com.angolar.ao.locadora.domain.model.Movie;
+import com.angolar.ao.locadora.domain.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MovieRepository extends JpaRepository<Movie, Long> {
-
-    boolean existsByTitle(String title);
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 }

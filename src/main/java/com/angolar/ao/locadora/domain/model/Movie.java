@@ -12,9 +12,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table( name = "movies" )
+@Table( name = "tb_movies" )
 public class Movie {
-
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
@@ -32,6 +31,5 @@ public class Movie {
 //    @JsonIgnore
     @ManyToOne
     private Category category;
-
 
 }
