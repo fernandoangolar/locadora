@@ -12,6 +12,11 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    public Category save (Category category) {
+
+        return categoryRepository.save(category);
+    }
+
     public Category buscaOuFalha (Long id_category ) {
          return  categoryRepository.findById(id_category)
                  .orElseThrow( () -> new EntidadeNaoEncontradaException(String.format(

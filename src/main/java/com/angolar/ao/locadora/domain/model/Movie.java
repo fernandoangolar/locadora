@@ -1,6 +1,5 @@
 package com.angolar.ao.locadora.domain.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +24,11 @@ public class Movie {
     @Column(nullable = false)
     private String release_year;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "movie")
     private List<Rentals> rentals = new ArrayList<>();
 
-//    @JsonIgnore
+    // @JsonIgnore
     @ManyToOne
     private Category category;
 

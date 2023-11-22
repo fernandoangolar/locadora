@@ -31,6 +31,12 @@ public class MovieService {
     }
 
 
+    public void delete (Movie movie) {
+
+       movieRepository.delete(movie);
+    }
+
+
     public Movie buscaOuFalha (Long id_movie) {
         return movieRepository.findById(id_movie)
                 .orElseThrow( () -> new EntidadeNaoEncontradaException(String.format(
