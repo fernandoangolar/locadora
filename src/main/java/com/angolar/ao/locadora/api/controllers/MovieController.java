@@ -34,14 +34,14 @@ public class MovieController {
     @GetMapping("/{id_movie}")
     public ResponseEntity<Movie> getById (@PathVariable Long id_movie ) {
 
-        Movie movie = movieRepository.getById(id_movie);
+        Optional<Movie> movie = movieRepository.findById(id_movie);
 
-        if ( movie == null ) {
+        if ( movie.isEmpty() ) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
             .build();
         } 
 
-        return ResponseEntity.ok(movie);
+        return ResponseEntity.ok(movie.get());
  
     }
 
@@ -72,7 +72,7 @@ public class MovieController {
                     .build();
         }
 
-        BeanUtils.copyProperties(movie, entity.get(), "id");
+        BeanUtils.copyProperties(movie, entity.get(), "id", "category");
         Movie save = movieService.save(entity.get());
         return ResponseEntity.ok(save);
     }
