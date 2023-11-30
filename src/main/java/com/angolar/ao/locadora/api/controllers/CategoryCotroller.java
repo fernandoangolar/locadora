@@ -19,5 +19,12 @@ import java.util.Optional;
 @RequestMapping("/categories")
 public class CategoryCotroller {
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @GetMapping
+    public List<Category> getAll () {
+        return  categoryRepository.findAll();
+    }
 
 }

@@ -1,14 +1,10 @@
 package com.angolar.ao.locadora.domain.model;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-
-
-import lombok.Data;
 
 @Data
 @Entity
@@ -32,4 +28,40 @@ public class Movie {
     @ManyToOne
     private Category category;
 
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getRelease_year() {
+        return release_year;
+    }
+
+    public void setRelease_year(String release_year) {
+        this.release_year = release_year;
+    }
+
+    public List<Rentals> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(List<Rentals> rentals) {
+        this.rentals = rentals;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

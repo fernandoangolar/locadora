@@ -19,6 +19,12 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    @Autowired MovieRepository movieRepository;
+
+    @GetMapping
+    public List<Movie> getAll() {
+       return movieRepository.findAll();
+    }
 
     @PostMapping
     public ResponseEntity<Movie> save (@RequestBody Movie movie ) {
@@ -27,6 +33,14 @@ public class MovieController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(entity);
+    }
+
+    @GetMapping("/{id}")
+    public Movie getById (@PathVariable Long id_movie) {
+
+        Movie movie = movieService.buscaOuFalha(id_movie);
+
+        return movie;
     }
 
 
