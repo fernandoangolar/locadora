@@ -2,7 +2,6 @@ package com.angolar.ao.locadora.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.extern.apachecommons.CommonsLog;
 
 import java.util.ArrayList;
 import java.util.List;

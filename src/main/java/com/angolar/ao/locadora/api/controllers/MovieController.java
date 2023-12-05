@@ -1,6 +1,5 @@
 package com.angolar.ao.locadora.api.controllers;
 
-import com.angolar.ao.locadora.domain.exception.EntidadeNaoEncontradaException;
 import com.angolar.ao.locadora.domain.model.Movie;
 import com.angolar.ao.locadora.domain.repositories.MovieRepository;
 import com.angolar.ao.locadora.domain.service.MovieService;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/movies")

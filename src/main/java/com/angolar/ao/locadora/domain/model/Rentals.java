@@ -1,6 +1,6 @@
 package com.angolar.ao.locadora.domain.model;
 
-import ch.qos.logback.core.net.server.Client;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
