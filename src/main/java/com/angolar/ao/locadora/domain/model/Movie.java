@@ -23,11 +23,16 @@ public class Movie {
     @Column(nullable = false)
     private String release_year;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL )
     private List<Rentals> rentals = new ArrayList<>();
 
-    // @JsonIgnore
+    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    private Reservation reservation;
+
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private String image;
+
     @ManyToOne
     private Category category;
 

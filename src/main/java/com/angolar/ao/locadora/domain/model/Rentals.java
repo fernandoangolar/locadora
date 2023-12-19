@@ -3,6 +3,7 @@ package com.angolar.ao.locadora.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -23,6 +24,8 @@ public class Rentals {
     @JoinColumn(name = "id_customer")
     private Customer customer;
 
+    @CreatedDate
     private LocalDateTime rental_date;
+
     private LocalDateTime return_date;
 }
